@@ -1,13 +1,57 @@
 from abc import ABC, abstractmethod
-from xml.sax.handler import property_interning_dict
-from models.enum import StatusPedido
+from models import StatusPedido, Cliente
 
 class Pedido(ABC):
-    @abstractmethod
-    def __init__(self, id, cliente:Cliente, valor, status: StatusPedido):
+
+    # construtor da classe
+    def __init__(self, id: int, cliente:Cliente, valor: float, status: StatusPedido):
         self._id = id              # atributo protegido
         self._Cliente = cliente    # objeto da classe Cliente
         self._valor = valor
+        self._StatusPedido = status
+
+
+    # Métodos abstratos que as classes filhas devem implementar
+    @abstractmethod
+    def calcularTaxa(self) -> float: #tipo de retorno dos metodos
+        pass
+
+    @abstractmethod
+    def getDetalhes(self) -> dict:
+        pass
+
+
+    # getters
+    @property
+    def id(self) -> int:
+        return self._id
+
+    @property
+    def cliente(self) -> Cliente:
+        return self._cliente
+
+    @property
+    def valor(self) -> float:
+        return self._valor
+
+    @property
+    def status(self) -> StatusPedido:
+        return self._status
+
+    # settes
+
+    @id.setter
+    def id(self, id:int):
+        self.id = _id
+
+    @cliente.setter
+    def cliente(self, cliente: Cliente):
+        self._cliente = cliente
+
+    @valor.setter
+    def valor(self, valor: float):
+        self._valor = valor
+
+    @status.setter
+    def status(self, status: StatusPedido):
         self._status = status
-
-
